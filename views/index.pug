@@ -1,5 +1,7 @@
 extends layout
-
+//- block content wskazuje gdzie ma sie wyswietlic strona np. w layout gdzie jest struktura naszego layout w miejscu block content to sie wyswietli, 
+//- layout.pug stosuje sie takze do definiowania js podlaczenia css, extends layout oznacza załadowanie layout do naszego indeksu to tak samo moze 
+//- skorzystac ze zmiennych a w routes/index.js wywolalismy index.pug wiec ma dostep do zmiennych ten index.pug z index.js
 block content
   h1= title
   p Welcome to #{title}
