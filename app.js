@@ -35,7 +35,11 @@ app.use(cookieParser());
 //ustawiamy sciezke do plików statycznych, tzw asety ładowane po stronie klineta np js, w katalogu asset bedzie wszystko dostepne po stronie przegladarki dostepne dla klienta
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+//musimy podać next() aby server nam nie stanął i po kliku w link przechodziły strony/obiekt res posiada locals co jest obiktem globalnym tak więc bedzie one dostepny w naszych szablonach także, do niego dodaejmy nasze sciezki gdy klikamy na link menu potem w szblona porownamy czy link klikniety odpowiada linkowi w menu i dodamy clase active
+app.use((req, res, next) => {
+  res.locals.path = req.path;
+  next()
+});
 
 //deklaracje routingow tu mamy wywolane za pomoca use(), '/' deklaracja adresu pod ktorym dotepny bedzie dany router
 app.use('/', indexRouter);
