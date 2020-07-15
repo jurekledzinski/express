@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+//takie jest hasło do logowania, pseudo baza danych :)
+const login = "admin";
+const password = '123';
 
 /* GET home page. */
 //jakko callback przekazuje to co ma się wykonać to co ma się wykonać po przechwyceniu tego adresu
@@ -11,6 +14,29 @@ router.get('/', (req, res) => {
   res.render('index', {
     title: 'Express'
   });
+});
+
+//proces logowania bedzie publicznie dostepny dlatego w roucie indeksowym
+
+router.get('/login', (req, res) => {
+  res.render('login', {
+    title: 'Logowanie'
+  });
+});
+
+//pseudo autoryzacja logowania noramlnie z poziomu bazy danych
+
+router.post('/login', (req, res) => {
+  const body = req.body;
+
+  if (body.login === login && body.password === password) {
+    //podajemy nazwe dla naszej sesji tu 1, kiedy sie zalogujemy prawidlowo
+    req.session.admin = 1;
+    res.redirect('/admin');
+  } else {
+    res.redirect('/login');
+  }
+  // console.log(req.body);
 });
 
 //musimy wyeksportowac modul router by wykorzystac w app.js gdzie pobieramy z jego pomoca nasz index i users bez prekazania tu i w users.js nie mogłbym go 

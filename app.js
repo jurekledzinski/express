@@ -1,5 +1,7 @@
 //zaimportowany moduł do przechwycania bledow http do przechwycenia
 var createError = require('http-errors');
+
+var cookieSession = require('cookie-session');
 //import express
 var express = require('express');
 //ddo pobiernia sciezek
@@ -8,6 +10,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 //loger sluzy do rzucania logów w trybie developerskim
 var logger = require('morgan');
+
+//import configu klucza i czasu przechowywania cookie
+
+let config = require('./config');
 
 //tu mamy dwa importy stron, startowej i uzytkownika
 var indexRouter = require('./routes/index');
@@ -34,6 +40,15 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 //ustawiamy sciezke do plików statycznych, tzw asety ładowane po stronie klineta np js, w katalogu asset bedzie wszystko dostepne po stronie przegladarki dostepne dla klienta
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(cookieSession({
+  name: 'session',
+  keys: config.keySession,
+
+  // Cookie Options
+  maxAge: config.maxAgeSession // 24 hours
+}))
 
 //musimy podać next() aby server nam nie stanął i po kliku w link przechodziły strony/obiekt res posiada locals co jest obiktem globalnym tak więc bedzie one dostepny w naszych szablonach także, do niego dodaejmy nasze sciezki gdy klikamy na link menu potem w szblona porownamy czy link klikniety odpowiada linkowi w menu i dodamy clase active
 app.use((req, res, next) => {
