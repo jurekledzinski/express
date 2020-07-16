@@ -28,7 +28,7 @@ db.once('open', function () {
   console.log('Baza danych jeset połaczona poprawnie')
 });
 
-//tu mamy dwa importy stron, startowej i uzytkownika
+//tu mamy importy stron
 var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news');
 var quizRouter = require('./routes/quiz');
