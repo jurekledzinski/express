@@ -5,6 +5,7 @@ const Quiz = require('../models/quiz')
 router.get('/', (req, res) => {
     //zmieniamy nasz sesje domyslnie z undefined po wejsciu na strone quiz na true dzikei negacji logicznej, potem zaminei sie false po oddaniu głosu, przesyłamy show w rnder i dzieki temu mozemy pozniej renderowac guiz.pug tzn. jesli jest true pokaz quiz jesli jest false
     //nie bedzie quizu
+
     const show = !req.session.vote;
 
 
