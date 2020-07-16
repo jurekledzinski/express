@@ -1,0 +1,20 @@
+//- formularz do tworzenia czy edycji artykułów
+
+extends ../layout
+
+block content
+  h1= title
+
+  if errors.errors !== undefined
+    each message in errors.errors
+      p=message
+
+  form(method='post')
+    p
+        label Tytuł
+        input(type='text' name='title' value=daneForm.title || '')
+    p
+        label Opis
+        textarea(name="description")=daneForm.description || ''
+    p
+        input(type='submit' value='Zapisz')

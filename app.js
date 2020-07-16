@@ -15,6 +15,19 @@ var logger = require('morgan');
 
 let config = require('./config');
 
+const mongoose = require('mongoose');
+
+//przed routami i ich wywolaniem łaczymy sie z baza danych
+mongoose.connect(config.db, {
+  useNewUrlParser: true
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'baza nie jest polaczona blad'));
+db.once('open', function () {
+  console.log('Baza danych jeset połaczona poprawnie')
+});
+
 //tu mamy dwa importy stron, startowej i uzytkownika
 var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news');
